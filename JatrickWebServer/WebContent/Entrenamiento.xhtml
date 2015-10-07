@@ -1,0 +1,121 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+
+
+
+
+
+<script >
+
+$(document).ready(function() {
+	 $( "#Selectable" ).selectable({
+		 stop:function() {
+		 
+			 var result = $( "#select-result" ).empty();
+				
+				var selected=$( ".ui-selected" ).first().attr('id');
+				
+		
+				$( "#select-result" ).append(selected);	
+				
+				
+		 }
+});
+});
+
+
+function Update(){
+	var selected=$( ".ui-selected" ).first().attr('id');
+	document.getElementById('form1:hidden1').value =selected ;
+ 
+   }
+
+
+</script>
+
+
+ <style>
+  
+</style>
+
+</h:head>
+
+<h:body class="fondo">
+
+	<h:outputStylesheet library="css" name="style1.css" />
+	
+<p:layout fullPage="true">
+ 
+    <p:layoutUnit position="north" styleClass="navbar">
+			 <ui:include src="Navbar.xhtml" />     
+			 <h:form>
+		<h:commandLink action="Index2.xhtml?faces-redirect=true">CHAAAAAAAAAAAAAAT</h:commandLink>
+	</h:form>
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="south" styleClass="footer" >
+      <h:outputText value="POWERED BY LOSPIBES SOFTWARE FACTORY"></h:outputText>
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="west" rendered="#{not empty usuarioMB.nick}"  styleClass="menu">
+     	 <ui:include src="Menu.xhtml" />     
+    </p:layoutUnit>
+  
+    <p:layoutUnit position="center" styleClass="Content">
+    
+    
+    <p id="feedback">
+		<span>Seleccionaste:</span> <span id="select-result">none</span>.
+	</p>
+
+     <ol id="Selectable">
+     
+     <ui:repeat value="#{entrenamientoMB.entrenamientos}" var="ent">
+           
+           <li class="ui-widget-content" id="#{ent.nombre}">
+                			
+        		 	<h:outputText value="Nombre: " />
+                    <h:outputText value="#{ent.nombre}" style="font-weight: bold "/>
+                
+       
+                    <h:outputText value=" #{ent.descripcion}" />
+ 
+                    <h:outputText value="Ataque: " />
+                    <h:outputText value="#{ent.entrenamientoAtaque}" />
+                    
+                    <h:outputText value="Defensa " />
+                    <h:outputText value="#{ent.entrenamientoDefensa}" />
+                    
+                    <h:outputText value="Tiro: " />
+                    <h:outputText value="#{ent.entrenamientoTiro}" />
+                    
+                    <h:outputText value="Porteria:  " />
+                    <h:outputText value="#{ent.entrenamientoPorteria}" />
+       
+         
+        	 <h:graphicImage library="images" name="#{ent.nombre}.jpg" width="auto" height="100px" style="float:right" />
+       		
+         </li>
+        </ui:repeat> 
+       
+      </ol> 	
+     
+       
+       <h:form id="form1">
+         <h:inputHidden id="hidden1" value="#{entrenamientoMB.entSel}" />
+         
+       <h:commandButton type="submit" value="Guardar" action="#{entrenamientoMB.guardarEntrenamiento}"  onclick="Update();"/>
+       </h:form>
+
+    </p:layoutUnit>
+ 
+</p:layout>
+
+</h:body>
+</html>

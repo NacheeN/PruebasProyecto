@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+ <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+  
+  
+
+   
+
+</h:head>
+<h:body class="fondo">
+		<h:outputStylesheet library="css" name="style1.css" />
+
+<p:layout fullPage="true">
+ 
+    <p:layoutUnit position="north" styleClass="navbar">
+			 <ui:include src="Navbar.xhtml" />     
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="south" styleClass="footer" >
+      <h:outputText value="POWERED BY LOSPIBES SOFTWARE FACTORY"></h:outputText>
+    </p:layoutUnit>
+    
+     
+    <p:layoutUnit position="west" rendered="#{not empty usuarioMB.nick}"  styleClass="menu">
+     	 <ui:include src="Menu.xhtml" />     
+    </p:layoutUnit>
+  
+    <p:layoutUnit position="center" styleClass="Content">
+        
+   	    
+   		
+		<h:form id="form">
+		    
+		    <p:dataTable id="checkboxDT" var="wrapperJugador" value="#{equipoMB.misJugadores}" selection="#{equipoMB.selectedJugadores}" rowKey="#{wrapperJugador.nombreJ}" style="margin-bottom:0;text-align:center;">
+		        <p:growl id="message" showDetail="true" /> 
+		        <f:facet name="header">
+		             Jugadores a Comprar
+		        </f:facet>
+		        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+		        <p:column headerText="Nombre">
+		            <h:outputText value="#{wrapperJugador.nombreJ}" />
+		        </p:column>
+		        <p:column headerText="FechaNac">
+		            <h:outputText value="#{wrapperJugador.fechaNac}" />
+		        </p:column>
+		        <p:column headerText="Tiro">
+		            <h:outputText value="#{wrapperJugador.tiro}" />
+		        </p:column>
+		        <p:column headerText="Ataque">
+		            <h:outputText value="#{wrapperJugador.ataque}" />
+		        </p:column>
+		         <p:column headerText="Defensa">
+		            <h:outputText value="#{wrapperJugador.defensa}" />
+		        </p:column>
+		         <p:column headerText="Porteria">
+		            <h:outputText value="#{wrapperJugador.porteria}" />
+		        </p:column>
+		         <p:column headerText="Tipo">
+		            <h:outputText value="#{wrapperJugador.tipo}" />
+		        </p:column>
+		        <p:column headerText="Estrella">
+		        
+		          <p:graphicImage value="/resources/images/tick.png" rendered="#{wrapperJugador.star}"/>
+   				  <p:graphicImage value="/resources/images/no-tick.png"  rendered="#{not wrapperJugador.star}"/>
+		          <!-- 
+		            <h:outputText value="#{wrapperJugador.star}" />
+		         -->
+		        
+		            
+		        </p:column>
+		         <!-- 
+		         <p:column headerText="Venta">
+		            <h:outputText value="#{wrapperJugador.vender}" />
+		        </p:column>
+		               -->
+		        <p:column headerText="Precio">
+		            <h:outputText value="#{wrapperJugador.precio}" />
+		        </p:column>
+		        <f:facet name="footer">
+		            <p:commandButton process="checkboxDT" value="Comprar Jugadores" action="#{equipoMB.comprar}" update="message" >
+		            	<p:confirm header="Confirmacion Venta" message="Quieres comprar los jugadores seleccionados?" icon="ui-icon-alert" />
+		            </p:commandButton>
+		        </f:facet>
+		    </p:dataTable>
+		 
+			 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+			        <p:commandButton value="si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	   		 </p:confirmDialog>
+		 
+		   
+		</h:form>
+
+    </p:layoutUnit>
+ 
+</p:layout>
+
+ 
+</h:body>
+</html>

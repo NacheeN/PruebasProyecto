@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+ <h:form>
+				<p:menu>
+					<p:submenu label="Menu">
+						<p:menuitem   action="#{equipoMB.darJugadoresMiEquipo}" value="Mi Equipo" icon="ui-icon-person"  />
+						<p:menuitem value="Formacion"  action="#{formacionMB.misJugadores}" icon="ui-icon-pencil"/>
+						<p:menuitem value="Entrenamiento"   action="#{entrenamientoMB.entrenamiento}" icon="ui-icon-gear"  />
+						<p:menuitem value="Experiencia"   action="#{equipoMB.experienciaJugadores}" icon="ui-icon-heart"  />					
+						<p:menuitem   action="#{equipoMB.darJugadores}" value="Vender Jugadores" icon="ui-icon-tag"  />
+						<p:menuitem   action="#{equipoMB.compJugadores}" value="Comprar Jugadores" icon="ui-icon-cart"  />
+						<p:menuitem value="Mi Liga"   action="#{ligaMB.miLiga}" icon="ui-icon-calculator" />
+						<p:menuitem   action="#{ligaMB.darResultados}" value="Resultados" icon="ui-icon-disk"  />
+						<p:menuitem value="Mensajes"   action="#{mensajeMB.irMisMensaje}" icon="ui-icon-mail-open"  />
+						
+						<p:menuitem value="Partido Amistoso"   action="#{ligaMB.partidoAmistoso}" icon="ui-icon-circle-plus"  />
+						
+						
+						
+					</p:submenu>																		  
+				</p:menu>
+	<ui:include src="Rss.html" />
+		</h:form>
+</html>

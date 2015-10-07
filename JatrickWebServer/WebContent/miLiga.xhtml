@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body class="fondo">
+
+	<h:outputStylesheet library="css" name="style1.css" />
+
+<p:layout fullPage="true">
+ 
+    <p:layoutUnit position="north" styleClass="navbar">
+			 <ui:include src="Navbar.xhtml" />     
+    </p:layoutUnit>
+ 
+ 
+ 	<p:layoutUnit position="west" rendered="#{not empty usuarioMB.nick}"
+			styleClass="menu">
+			<ui:include src="Menu.xhtml" />
+		</p:layoutUnit>
+		
+    <p:layoutUnit position="south" styleClass="footer" >
+      <h:outputText value="POWERED BY LOSPIBES SOFTWARE FACTORY"></h:outputText>
+    </p:layoutUnit>
+    
+ 
+    <p:layoutUnit position="center" styleClass="Content">
+        <h:form id="UnirmeLiga">
+	   <h:selectOneMenu value="#{ligaMB.nombreLiga}"> <!--  ligasPendientes es la list<liga> sin comienzo -->
+	    <f:selectItems value="#{ligaMB.ligasPendientes}" var="liga" itemValue="#{liga.nombreLiga}" itemLabel="#{liga.nombreLiga}"/>
+	</h:selectOneMenu> 
+	<h:commandButton  value="Unirse" action="#{ligaMB.unirseLiga}" update="growl"/>
+</h:form>
+    </p:layoutUnit>
+ 
+</p:layout>
+
+</h:body>
+   
+</html>

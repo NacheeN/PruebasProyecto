@@ -1,0 +1,89 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<!--  
+
+
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+-->
+
+<h:head>
+
+	<link rel="stylesheet" href="resources/css/styleJSF.css" />	
+	<!-- 
+	<script src="resources/js/jquery-1.8.0.min.js"></script>
+		 -->
+	<script src="resources/js/script.js"></script>
+
+	<h:outputText>Chat Tutorial</h:outputText>
+
+
+</h:head>
+
+
+
+<h:body>
+	
+
+		<h:panelGroup layout="block" id="chatHeader">	
+			
+				<h:inputHidden id="room" value="#{usuarioMB.room}"></h:inputHidden>
+				<h:inputHidden id="usuario_nick" value="#{usuarioMB.nick}"></h:inputHidden>
+				<h:commandButton type="submit"  id="connect" value="Conectar" />			
+				<h:commandButton type="submit" id="disconnect" value="Desconectar" disabled="true" />		
+		
+		</h:panelGroup>
+	
+
+	<h:panelGroup layout="block" id="chatAside">
+		<!--  seteado en block se muestra como un div en html -->
+
+		<!-- Esto ni idea como pasarlo a xhtml, funciona igual asi que lo deje porque no encontre etiquetas para lo que viene y no se si lo vamos a usar
+     	Como lo dijo un tipo en una pregunta: 
+     	"JSF doesn't care if the output is XHTML or HTML5. 
+     	Both are equally valid as long as you adhere the XML syntax (i.e. the document must always be well-formed). 
+     	You can perfectly inline HTML5 specific tags in JSF pages/components. Your only concern is the browser support"     
+      -->
+
+
+		<h5>Usuario/s en línea</h5>
+		<ul id="userList">
+			<li id="all" class="hoverable">Todos</li>
+		</ul>
+
+	</h:panelGroup>
+
+
+	<h:panelGroup layout="block" id="chatArticle">
+		<h:panelGroup layout="block" id="dialogo">
+
+			<h:panelGroup class="tituloChat">Chat
+				<h:panelGroup id="chatTo"></h:panelGroup>
+			</h:panelGroup>
+
+
+			<h:panelGroup layout="block" id="message-board" />
+
+
+			<hr></hr>
+			<p:inputTextarea id="message" placeholder="mensaje..." styleClass="mensajeChat"></p:inputTextarea>
+			
+			<h:commandButton id="send" value="Send" disabled="true"/>
+			<!-- 
+			<p:inputTextarea id="message" placeholder="mensaje..."></p:inputTextarea>
+			<h:inputTextarea id="message" styleClass="mensajeChat" disabled="true"></h:inputTextarea>
+			<textarea style="widht:150px;height: 300px"></textarea>
+ -->
+
+
+		</h:panelGroup>
+
+	</h:panelGroup>
+	
+	
+</h:body>
+
+</html>

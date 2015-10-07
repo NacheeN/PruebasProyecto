@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="JatrickAppServer"
+		transaction-type="JTA">
+
+		<jta-data-source>java:jboss/proyecto</jta-data-source>
+
+		<class>dominio.Usuario</class>
+		<class>dominio.Equipo</class>
+		<class>dominio.Jugador</class>
+		<class>dominio.Ciudad</class>
+		<class>dominio.Liga</class>
+		<class>dominio.Experiencia</class>
+		<class>dominio.Entrenamiento</class>
+		<class>dominio.Partido</class>
+		<class>dominio.Formacion</class>
+		<class>dominio.Roles</class>
+		<class>dominio.EventosPartido</class>
+		<class>dominio.Mensaje</class>
+		
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />	
+			
+			<property name="hibernate.format_sql" value="true" />
+			
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+		
+						
+				 
+
+								
+												
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.hbm2ddl.import_files" value="META-INF/sql/Datos.sql" />
+			
+			
+		
+			
+			
+			
+		</properties>
+
+
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,174 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body class="fondo">
+	<h:outputStylesheet library="css" name="style1.css" />
+
+	<p:layout fullPage="true">
+
+
+		<p:layoutUnit position="north" styleClass="navbar">
+			<ui:include src="Navbar.xhtml" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" styleClass="footer">
+			<h:outputText value="POWERED BY LOSPIBES SOFTWARE FACTORY"></h:outputText>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="west" rendered="#{not empty usuarioMB.nick}"
+			styleClass="menu">
+			<ui:include src="Menu.xhtml" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center" styleClass="Content">
+
+			<p:growl id="growl" showDetail="false" />
+
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+				
+				
+				
+				
+				<h:panelGroup layout="block" styleClass="datagrid-container">
+				<h:panelGroup layout="block" styleClass="datagrid">
+					
+					<table>
+						<thead>
+							<tr>
+								<th style="color: #333;font-size:1.27em;">Equipo </th>
+								<th style="color: #333;font-size:1.27em;">Puntos </th>
+							</tr>
+						</thead>
+				
+						<tbody>
+							<tr>
+								<td class="row-equipo">
+							
+									<p:outputLabel value="#{ligaMB.puntos[0]}" style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;">
+									</p:outputLabel>
+									
+								
+								</td>
+								
+								<td class="row-equipo">
+							
+									<p:outputLabel value="#{ligaMB.puntos[1]}"  style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;">
+									</p:outputLabel>
+							
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="row-equipo">
+							
+									<p:outputLabel value="#{ligaMB.puntos[2]}" style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;">
+									</p:outputLabel>
+									
+								
+								</td>
+								
+								<td class="row-equipo">
+							
+									<p:outputLabel value="#{ligaMB.puntos[3]}" style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;">
+									</p:outputLabel>
+							
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="row-equipo">
+							
+									<p:outputLabel value="#{ligaMB.puntos[4]}" style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;">
+									</p:outputLabel>
+									
+								
+								</td>
+								
+								<td class="row-equipo">
+							
+									<p:outputLabel value="#{ligaMB.puntos[5]}" style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;">
+									</p:outputLabel>
+							
+								</td>
+								
+							</tr>
+							<tr>
+								<td class="row-equipo">
+							
+									<p:outputLabel value="#{ligaMB.puntos[6]}" style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;">
+									</p:outputLabel>
+									
+								
+								</td>
+								
+								<td class="row-equipo">
+							
+									<p:outputLabel value="#{ligaMB.puntos[7]}" style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;">
+									</p:outputLabel>
+							
+								</td>
+								
+							</tr>
+
+						</tbody>
+					</table>
+				</h:panelGroup>
+			</h:panelGroup>
+				
+				
+				<p:dataTable var="partido" value="#{ligaMB.resultados}">
+				
+				
+				    <p:column headerText="Fecha">
+				        <h:outputText value="#{partido.fecha}" >
+				        <!-- 
+				         <f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" timeZone="UYST" />
+				          -->
+				         </h:outputText>
+				    </p:column>
+				 
+				  <p:column headerText="Nombre Equipo Local">
+				        <h:outputText value="#{partido.idEquipo}" />
+				    </p:column>
+				 
+				    <p:column headerText="Goles Locatario">
+				        <h:outputText value="#{partido.golesL}" />
+				    </p:column>
+				 
+				    <p:column headerText="Goles Visitante">
+				        <h:outputText value="#{partido.golesV}" />
+				    </p:column>
+				 
+				   
+				    <p:column headerText="Nombre Equipo Visitante">
+				        <h:outputText value="#{partido.idEquipo2}" />
+				    </p:column>
+				    <p:column headerText="Finalizado">
+
+						<p:graphicImage value="/resources/images/tick.png"
+							rendered="#{partido.finalizado}" />
+						<p:graphicImage value="/resources/images/no-tick.png"
+							rendered="#{not partido.finalizado}" />
+						<!-- 
+		            <h:outputText value="#{wrapperJugador.star}" />
+		         -->
+					</p:column>
+				    
+				</p:dataTable>
+
+			</h:form>
+
+		</p:layoutUnit>
+
+	</p:layout>
+
+
+</h:body>
+</html>

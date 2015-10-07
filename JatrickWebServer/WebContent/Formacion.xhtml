@@ -1,0 +1,469 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:a4j="http://richfaces.org/a4j">
+
+<h:head>
+
+
+</h:head>
+
+<h:body class="fondo">
+
+
+	<h:outputStylesheet>
+
+
+  #sortableMediocampistas, #sortableDefensas, #sortableArquero  {
+    border: 1px solid #eee;
+    width: 160px;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+    text-align:center;
+   // border-top: none;
+
+
+  }
+  
+   #sortableDelanteros{
+    border: 1px solid #eee;
+    width: 160px;
+    min-height: 20px;
+    list-style-type: none;
+   
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+    text-align:center;
+
+   }
+  
+   #sortableSuplentes{
+    border: 1px solid #eee;
+  	width:auto;
+    height:auto;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+    text-align:center;
+   
+   }
+  
+   #sortableDelanteros li, #sortableMediocampistas li, #sortableDefensas li, #sortableArquero li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    word-wrap: break-word;
+
+    width: 140px;
+   background:none !Important;
+ 	height:auto;
+
+    
+  }
+  #sortableSuplentes li{
+    display: inline;
+    border: 1px solid #eee;
+    list-style-type: none;
+    width:8%;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+    text-align:center;
+    background:none !Important;
+  }
+  
+  #legend-Suplentes{
+     border: 1px solid #eee;
+  }
+  
+  .formacion-Suplentes li {
+	width:100%;	
+  	
+  	 
+  }
+  
+
+  
+   .formacion-Delanteros {
+  	float:left;
+  	margin-left:3%;
+  	text-align:center;
+  }
+  
+  .formacion-Mediocampistas {
+  	float:left;
+  	margin-left:3%;
+  	text-align:center;
+  	
+  }
+  
+  
+  .formacion-Defensas {
+  	float:left;
+  	margin-left:3%;
+  	text-align:center;
+  }
+
+  .formacion-Arquero {
+  	float:left;
+  	margin-left:3%;
+  	text-align:center;
+  }
+  
+  
+  
+  
+  .jugador-nombre {
+	width:100%;
+	float:left;
+  }
+
+
+  .jugador-tipo {
+
+  width:100%;
+
+  }
+</h:outputStylesheet>
+
+
+	<h:outputScript target="head">
+   
+   
+    $(function() {  
+	
+	  $("#formFormacion\\:botonFormacion").click(function(){
+	  
+		   var growl = PF('growl');
+		   
+		   var arquero = $('#sortableArquero li').length;
+		   var mediocampistas = $('#sortableMediocampistas li').length;
+		   var defensas = $('#sortableDefensas li').length;
+		   var delanteros = $('#sortableDelanteros li').length;
+		   
+		   var titulares = arquero + mediocampistas + defensas + delanteros;
+		   
+			 
+		   if( $('#sortableArquero li').length == 0 ){
+		   
+			   growl.show([{summary:'Error', detail: 'Debe seleccionar 1 Arquero titular'}]); //, severity: 'info severity'}]) con esto cambia el icono
+			   return false;
+		   
+		   }else if($('#sortableDelanteros li').length == 0 ){
+		   
+			   growl.show([{summary:'Error', detail: 'Debe seleccionar al menos 1 Delantero titular'}]);
+			   return false;
+			   
+		   }else if($('#sortableMediocampistas li').length == 0 ){
+		   
+		    growl.show([{summary:'Error', detail: 'Debe seleccionar al menos 1 Mediocampista titular'}]);
+		    return false;
+		    
+		    }else if($('#sortableDefensas li').length == 0 ){
+			    growl.show([{summary:'Error', detail: 'Debe seleccionar al menos 1 Defensa titular'}]);
+			    return false;
+		    }else if( $('#sortableArquero li').length > 1 ){
+		    growl.show([{summary:'Error', detail: 'Debe seleccionar 1 solo Arquero titular'}]);
+			    return false;
+		    }
+		    
+		    if(titulares != 11){
+		     growl.show([{summary:'Error', detail: 'Debe seleccionar 11 jugadores titulares'}]);
+			    return false;
+		    }
+		   
+		   
+		   });	// cierra click
+		 
+	  
+   }); // cierra function
+   
+$(function() {
+    
+    
+    $("#sortableDelanteros").sortable({
+     
+     connectWith: ".connectedSortable",
+     receive: function(event, ui) {
+    
+   //   alert("Se metio"+ui.item.text());
+      
+      var data = ui.item.text();     
+     
+      var arr = data.split(" ");
+      var nombre = arr[0] +" "+ arr[1];
+      
+     // alert(arr[0] +" "+ arr[1]);
+    
+      remoteDelanteros([{name:'nombre', value:nombre}])
+      
+      }
+      
+    }).disableSelection();
+    
+    
+   $("#sortableMediocampistas").sortable({
+     
+     connectWith: ".connectedSortable",
+     receive: function(event, ui) {
+    
+     var data = ui.item.text();    
+     
+      var arr = data.split(" ");
+      var nombre = arr[0] +" "+ arr[1];
+    
+      
+	  remoteMediocampistas([{name:'nombre', value:nombre}])
+      
+      
+      }
+      
+    }).disableSelection();
+    
+    
+    $("#sortableDefensas").sortable({
+      
+      connectWith: ".connectedSortable",
+      receive: function(event, ui) {
+    
+     	    var data = ui.item.text();    
+     
+      var arr = data.split(" ");
+      var nombre = arr[0] +" "+ arr[1];
+    
+     //   alert(nombre);
+	  remoteDefensas([{name:'nombre', value:nombre}])
+     	
+      
+     
+      
+      }
+      
+    }).disableSelection();
+    
+    
+    $("#sortableArquero").sortable({
+     
+     connectWith: ".connectedSortable",
+     receive: function(event, ui) {
+    
+	    var data = ui.item.text();    
+     
+      var arr = data.split(" ");
+      var nombre = arr[0] +" "+ arr[1];
+    
+      
+	  remoteArquero([{name:'nombre', value:nombre}])
+     	
+      
+      }
+      
+    }).disableSelection();
+    
+    
+    
+    
+    $("#sortableSuplentes").sortable({
+     
+     
+     connectWith: ".connectedSortable",
+     receive: function(event, ui) {    
+	        
+      var data = ui.item.text();    
+     
+      var arr = data.split(" ");
+      var nombre = arr[0] +" "+ arr[1];
+    
+      
+	  remoteSuplentes([{name:'nombre', value:nombre}])
+	      
+      }
+      
+    }).disableSelection();
+    
+    
+  });
+   
+
+</h:outputScript>
+
+	<h:outputStylesheet library="css" name="style1.css" />
+
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" styleClass="navbar">
+			<ui:include src="Navbar.xhtml" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" styleClass="footer">
+			<h:outputText value="POWERED BY LOSPIBES SOFTWARE FACTORY"></h:outputText>
+		</p:layoutUnit>
+
+		<p:layoutUnit collapsible="true" position="west"
+			rendered="#{not empty usuarioMB.nick}" styleClass="menu">
+			<ui:include src="Menu.xhtml" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center" styleClass="Content">
+<h:form id="formFormacion">
+
+			<!-- Empieza formulario -->
+<div id="canchita" style="float:left;width:100%;">
+
+			
+				
+
+
+				<h:panelGroup layout="block" id="formacion-Arquero"
+					rendered="#{not empty usuarioMB.nick}"
+					styleClass="formacion-Arquero">
+
+
+					<legend id="leged-Arquero">Arquero</legend>
+
+					<ul id="sortableArquero" class="connectedSortable">
+					
+						<ui:repeat value="#{formacionMB.arquero}" var="jugador">
+ 							
+							<li class="item-suplente ui-state-highlight">
+							 <h:graphicImage library="images" name="#{equipoMB.dorsalPNG}" width="auto" height="80px"  />
+								<h:outputText value="#{jugador.nombreJ}" styleClass="jugador-nombre" /> 
+								<h:outputText value=" #{jugador.tipo}" styleClass="jugador-tipo" />
+								<h:graphicImage name="images/star.png" rendered="#{jugador.star eq true}" style="height:11.5% !Important; width:11.5%; float:rightt;" />
+							</li>
+
+						</ui:repeat>
+					</ul>
+				</h:panelGroup>
+				<p:remoteCommand name="remoteArquero"
+					action="#{formacionMB.addArquero}"></p:remoteCommand>
+
+
+
+				<h:panelGroup layout="block" id="formacion-Defensas"
+					rendered="#{not empty usuarioMB.nick}"
+					styleClass="formacion-Defensas">
+
+					<legend id="leged-Defensas">Defensas</legend>
+					
+					<ul id="sortableDefensas" class="connectedSortable">
+						
+						<ui:repeat value="#{formacionMB.defensas}" var="jugador">
+
+							<li class="item-suplente ui-state-highlight">
+							 <h:graphicImage library="images" name="#{equipoMB.dorsalPNG}" width="auto" height="80px"  />
+								<h:outputText value="#{jugador.nombreJ}" styleClass="jugador-nombre" />
+								<h:outputText value=" #{jugador.tipo}" styleClass="jugador-tipo" />
+								<h:graphicImage name="images/star.png" rendered="#{jugador.star eq true}" style="height:11.5% !Important; width:11.5%; float:rightt;" />
+							</li>
+							
+
+						</ui:repeat>
+					</ul>
+				</h:panelGroup>
+				<p:remoteCommand name="remoteDefensas"
+					action="#{formacionMB.addDefensa}"></p:remoteCommand>
+
+
+				<h:panelGroup layout="block" id="formacion-Mediocampistas"
+					rendered="#{not empty usuarioMB.nick}"
+					styleClass="formacion-Mediocampistas">
+
+					<legend id="leged-Mediocampistas">Mediocampistas</legend>
+					
+					
+					<ul id="sortableMediocampistas" class="connectedSortable">
+					
+						<ui:repeat value="#{formacionMB.mediocampistas}" var="jugador">
+
+							<li class="item-suplente ui-state-highlight">
+							 <h:graphicImage library="images" name="#{equipoMB.dorsalPNG}" width="auto" height="80px"  />
+								<h:outputText value="#{jugador.nombreJ}" styleClass="jugador-nombre" /> 
+								<h:outputText value=" #{jugador.tipo}" styleClass="jugador-tipo" />
+								<h:graphicImage name="images/star.png" rendered="#{jugador.star eq true}" style="height:11.5% !Important; width:11.5%; float:rightt;" />
+							</li>
+
+						</ui:repeat>
+					</ul>
+				</h:panelGroup>
+
+				<p:remoteCommand name="remoteMediocampistas"
+					action="#{formacionMB.addMediocampista}"></p:remoteCommand>
+
+
+				<h:panelGroup layout="block" id="formacion-Delanteros"
+					rendered="#{not empty usuarioMB.nick}"
+					styleClass="formacion-Delanteros">
+
+					<legend id="leged-Delanteros">Delanteros</legend>
+
+
+					<ul id="sortableDelanteros" class="connectedSortable">
+					
+						<ui:repeat value="#{formacionMB.delanteros}" var="jugador">
+
+							<li class="item-suplente ui-state-highlight">
+						 <h:graphicImage library="images" name="#{equipoMB.dorsalPNG}" width="auto" height="80px"  />
+								<h:outputText value="#{jugador.nombreJ}" styleClass="jugador-nombre" /> 
+								<h:outputText value=" #{jugador.tipo}" styleClass="jugador-tipo" />
+								<h:graphicImage name="images/star.png" rendered="#{jugador.star eq true}" style="height:11.5% !Important; width:11.5%; float:rightt;" />
+							</li>
+
+						</ui:repeat>
+					</ul>
+				</h:panelGroup>
+
+				<p:remoteCommand name="remoteDelanteros" action="#{formacionMB.addDelantero}"></p:remoteCommand>
+
+
+				<h:commandButton type="submit" id="botonFormacion" action="#{formacionMB.modificarFormacion}"	value="Aceptar" update="growl" />
+			
+</div>
+
+	<div id="canchita2" style="float:left;width:100%;">
+		<p:growl id="growl" showDetail="false" widgetVar="growl"  />
+
+				<h:panelGroup layout="block" id="formacion-Suplentes"
+					rendered="#{not empty usuarioMB.nick}"
+					styleClass="formacion-Suplentes">
+
+					<legend id="leged-Suplentes">Suplentes</legend>
+					
+					<ul id="sortableSuplentes" class="connectedSortable"
+						title="Suplentes">
+						
+						<ui:repeat value="#{formacionMB.suplentes}" var="jugador">
+
+							<li class="item-suplente ui-state-highlight">
+					 <h:graphicImage library="images" name="#{equipoMB.dorsalPNG}" width="auto" height="80px"  />
+								<h:outputText value="#{jugador.nombreJ}" styleClass="jugador-nombre" /> 
+								<h:outputText value=" #{jugador.tipo}" styleClass="jugador-tipo" />
+								<h:graphicImage name="images/star.png" rendered="#{jugador.star eq true}" style="height:11.5% !Important; width:11.5%; float:rightt;" />
+							</li>
+
+						</ui:repeat>
+					</ul>
+
+				</h:panelGroup>
+
+
+				<p:remoteCommand name="remoteSuplentes"
+					action="#{formacionMB.addSuplente}"></p:remoteCommand>
+	
+	</div>
+	</h:form>
+		</p:layoutUnit>
+
+	</p:layout>
+
+</h:body>
+
+</html>

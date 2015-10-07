@@ -1,0 +1,203 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<link href='http://fonts.googleapis.com/css?family=Aldrich'
+		rel='stylesheet' type='text/css'></link>
+	<script>
+   
+		var geocoder;
+		var map;
+		
+		function initialize() {
+		  geocoder = new google.maps.Geocoder();
+		  var latlng = new google.maps.LatLng(-34.397, 150.644);
+		  var mapOptions = {
+		    zoom: 8,
+		    center: latlng
+		  }
+		  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		  codeAddress();
+		
+		}
+		
+		
+		function codeAddress() {
+			//var ciudad = remoteCiudad();
+			
+		  var address = $("#ciudad").val();
+		//  alert(address);
+		  geocoder.geocode( { 'address': address}, function(results, status) {
+		    if (status == google.maps.GeocoderStatus.OK) {
+		      map.setCenter(results[0].geometry.location);
+		      var marker = new google.maps.Marker({
+		          map: map,
+		          position: results[0].geometry.location
+		      });
+		    } else {
+		      alert('Geocode was not successful for the following reason: ' + status);
+		    }
+		  });
+		}
+		
+		google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+
+
+
+</h:head>
+<h:body class="fondo">
+	<h:outputStylesheet library="css" name="style1.css" />
+
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" styleClass="navbar">
+			<ui:include src="Navbar.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="west" rendered="#{not empty usuarioMB.nick}"
+			styleClass="menu">
+			<ui:include src="Menu.xhtml" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" styleClass="footer">
+			<h:outputText value="POWERED BY LOSPIBES SOFTWARE FACTORY"></h:outputText>
+		</p:layoutUnit>
+
+
+		<p:layoutUnit position="center" styleClass="Content">
+
+			<h:inputHidden id="ciudad" value="#{equipoMB.ciudad}"></h:inputHidden>
+
+
+			<h:panelGroup layout="block"
+				style="width:100%;text-align:center;margin-bottom:20px;">
+				<p:outputLabel value="#{equipoMB.nombre}"
+					style="font-family:Aldrich;color:#A0B8A2;font-size:60px;text-shadow:3px 2px 3px #706868;"></p:outputLabel>
+			</h:panelGroup>
+
+	<h:panelGroup layout="block" id="map-canvas" style="border-radius: 0px 0px 0px 0px; -moz-border-radius: 0px 0px 0px 0px; -webkit-border-radius: 0px 0px 0px 0px; border: 7.5px double #000000;"></h:panelGroup>
+		<!--	<div id="map-canvas" style="border-radius: 0px 0px 0px 0px; -moz-border-radius: 0px 0px 0px 0px; -webkit-border-radius: 0px 0px 0px 0px; border: 7.5px double #000000;"></div>
+			-->
+			
+			<h:panelGroup layout="block" styleClass="datagrid-container">
+				<h:panelGroup layout="block" styleClass="datagrid">
+					
+					<table>
+						<thead>
+							<tr>
+								<th style="color: #333;font-size:1.27em;">Datos del Equipo</th>
+							</tr>
+						</thead>
+				
+						<tbody>
+							<tr>
+								<td class="row-equipo"><p:outputLabel value="País : "
+										style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;">
+
+										<!-- Artifika -->
+									</p:outputLabel> <p:outputLabel value="#{equipoMB.pais}"
+										style="font-family:Architects Daughter;font-size: 18px"></p:outputLabel>
+								</td>
+							</tr>
+							<tr>
+								<td class="row-equipo"><p:outputLabel value="Ciudad : "
+										style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;">
+
+										<!--  Artifika  -->
+									</p:outputLabel> <p:outputLabel value="#{equipoMB.ciudad}"
+										style="font-family:Architects Daughter;font-size: 18px"></p:outputLabel>
+								</td>
+							</tr>
+							<tr>
+								<td class="row-equipo"><p:outputLabel value="Capital : "
+										style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;"></p:outputLabel>
+									<p:outputLabel value="$#{equipoMB.capital}"
+										style="font-family:Architects Daughter;font-size: 18px"></p:outputLabel>
+								</td>
+							</tr>
+							<tr>
+								<td class="row-equipo"><p:outputLabel value="Dorsal : "
+										style="font-family: Arbutus;color: #F2F2F2;font-size: 19px;font-weight: bold;text-shadow: 1px 1px 1px #A1A1A1;float:left;width:100%;margin-bottom: 3%;"></p:outputLabel>
+										<h:panelGroup layout="block">
+										<h:graphicImage library="images" name="#{equipoMB.dorsalPNG}" width="auto" height="150px"  />
+										</h:panelGroup>
+								</td>
+							</tr>
+
+
+
+						</tbody>
+					</table>
+				</h:panelGroup>
+			</h:panelGroup>
+			
+			<p:growl id="growl" showDetail="false" />
+
+
+
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+				<p:dataTable id="checkboxDT" var="wrapperJugador"
+					value="#{equipoMB.misJugadores}"
+					selection="#{equipoMB.selectedJugadores}"
+					rowKey="#{wrapperJugador.nombreJ}"
+					style="margin-bottom:0;text-align:center;">
+					<f:facet name="header" value="Plantilla">
+				Plantilla
+		        </f:facet>
+					<!--  <p:column selectionMode="multiple" style="width:16px;text-align:center"/> -->
+					<p:column headerText="Nombre" sortBy="#{wrapperJugador.nombreJ}">
+						<h:outputText value="#{wrapperJugador.nombreJ}" />
+					</p:column>
+					<p:column headerText="Fecha de Nacimiento">
+						<h:outputText value="#{wrapperJugador.fechaNac}" />
+					</p:column>
+					<p:column headerText="Velocidad" sortBy="#{wrapperJugador.tiro}">
+						<h:outputText value="#{wrapperJugador.tiro}" />
+					</p:column>
+					<p:column headerText="Ataque" sortBy="#{wrapperJugador.ataque}">
+						<h:outputText value="#{wrapperJugador.ataque}" />
+					</p:column>
+					<p:column headerText="Defensa" sortBy="#{wrapperJugador.defensa}">
+						<h:outputText value="#{wrapperJugador.defensa}" />
+					</p:column>
+					<p:column headerText="Porteria" sortBy="#{wrapperJugador.porteria}">
+						<h:outputText value="#{wrapperJugador.porteria}" />
+					</p:column>
+					<p:column headerText="Tipo" sortBy="#{wrapperJugador.tipo}">
+						<h:outputText value="#{wrapperJugador.tipo}" />
+					</p:column>
+					<p:column headerText="Estrella">
+
+						<p:graphicImage value="/resources/images/tick.png"
+							rendered="#{wrapperJugador.star}" />
+						<p:graphicImage value="/resources/images/no-tick.png"
+							rendered="#{not wrapperJugador.star}" />
+						<!-- 
+		            <h:outputText value="#{wrapperJugador.star}" />
+		         -->
+					</p:column>
+
+				</p:dataTable>
+
+
+			</h:form>
+
+
+
+
+
+
+
+		</p:layoutUnit>
+
+	</p:layout>
+
+
+</h:body>
+</html>

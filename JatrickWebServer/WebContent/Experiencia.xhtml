@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+ 
+
+</h:head>
+<h:body class="fondo">
+		<h:outputStylesheet library="css" name="style1.css" />
+
+<p:layout fullPage="true">
+ 
+    <p:layoutUnit position="north" styleClass="navbar">
+			 <ui:include src="Navbar.xhtml" />     
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="south" styleClass="footer" >
+      <h:outputText value="POWERED BY LOSPIBES SOFTWARE FACTORY"></h:outputText>
+    </p:layoutUnit>
+    
+     
+    <p:layoutUnit position="west" rendered="#{not empty usuarioMB.nick}"  styleClass="menu">
+     	 <ui:include src="Menu.xhtml" />     
+    </p:layoutUnit>
+  
+    <p:layoutUnit position="center" styleClass="Content">
+        
+   	    
+   		
+		<h:form id="form">
+		    
+		    <p:dataTable var="wrapperExperiencia" value="#{equipoMB.jugadoresExp}"  style="margin-bottom:0">
+		       
+		        <f:facet name="header">
+		             Experiencia Jugadores
+		        </f:facet>
+		         <p:column headerText="Nombre">
+		            <h:outputText value="#{wrapperExperiencia.nombreJ}" />
+		        </p:column>
+		        <p:column headerText="ExpAtaque">
+		            <p:progressBar value="#{wrapperExperiencia.expAtaque}" labelTemplate="{value}%" displayOnly="true"/>
+		        </p:column>
+		        <p:column headerText="ExpTiro">
+		            <p:progressBar value="#{wrapperExperiencia.expTiro}"  labelTemplate="{value}%" displayOnly="true"/>
+		        </p:column>
+		        <p:column headerText="ExpDefensa">
+		            <p:progressBar value="#{wrapperExperiencia.expDefensa}"  labelTemplate="{value}%" displayOnly="true"/>
+		        </p:column>
+		        <p:column headerText="ExpPorteria">
+		            <p:progressBar value="#{wrapperExperiencia.expPorteria}"  labelTemplate="{value}%" displayOnly="true"/>
+		        </p:column>
+		        
+		         
+		    </p:dataTable>
+		 
+		 
+		</h:form>
+
+    </p:layoutUnit>
+ 
+</p:layout>
+
+ 
+</h:body>
+</html>

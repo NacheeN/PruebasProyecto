@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<!-- 
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<script src="resources/js/script.js"></script>
+ --> 
+</h:head>
+
+<h:body class="fondo">
+
+	<h:outputStylesheet library="css" name="style1.css" />
+
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" styleClass="navbar">
+			<ui:include src="Navbar.xhtml" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" styleClass="footer">
+			<h:outputText value="POWERED BY LOSPIBES SOFTWARE FACTORY"></h:outputText>
+		</p:layoutUnit>
+
+		<p:layoutUnit collapsible="true" position="west"
+			rendered="#{not empty usuarioMB.nick}" styleClass="menu">
+			<ui:include src="Menu.xhtml" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center" styleClass="Content">
+			<!-- 
+   		  -->
+   		
+			<h:panelGroup layout="block" id="content-chat"
+				rendered="#{not empty usuarioMB.nick}" styleClass="Content-chat">
+
+				<ui:include src="Chat.xhtml" />
+				
+				
+				
+				
+			</h:panelGroup>
+			
+			<h:panelGroup layout="block" id="Events" style=" min-height:100%;float:left ;width:60%; overflow-y:scroll">
+				<h:form id="form">
+				
+				 
+				 
+			    <p:dataList id="list" value="#{partidoMB.eventos}" var="ev"  style="float:left; width:100%" >
+			       
+				        <f:facet name="header">
+				           Eventos
+				        </f:facet>
+				        
+				       <h:outputText value="#{ev.evento}" /><br />
+				       <h:outputText value="#{ev.descripcion}" /><br />
+				       
+				       <h:outputText rendered="#{ev.factorAleatorio1!=''}" value="#{ev.factorAleatorio1} " ></h:outputText>
+				       <ui:fragment rendered="#{ev.factorAleatorio1 != ''}"><br /></ui:fragment>
+				       
+				       <h:outputText rendered="#{ev.factorAleatorio2 != ''}" value="#{ev.factorAleatorio2} "  ></h:outputText>
+				       <ui:fragment rendered="#{ev.factorAleatorio2 != ''}"><br /></ui:fragment>
+				       
+				       <h:outputText rendered="#{ev.resultado != ''}" value="#{ev.resultado}" ></h:outputText>
+						 <ui:fragment rendered="#{ev.resultado != ''}"><br /></ui:fragment>				           	
+				       
+			    </p:dataList >
+			    
+			    
+			    <h:panelGroup>
+			    
+			    <h:outputText id="eq1" value="#{partidoMB.equipo1}" />
+			    
+				<h:outputText id="espacio1" value=" " />
+				
+			    <h:outputText id="goles1" value="#{partidoMB.goles1}" />
+			    
+			     <h:outputText id="barrita" value=" - " />
+			    
+				<h:outputText id="goles2" value="#{partidoMB.goles2}" />
+				
+				<h:outputText id="espacio2" value=" " />
+				
+				<h:outputText id="eq2" value="#{partidoMB.equipo2}" />
+				 
+			    </h:panelGroup>
+				 
+			    
+			    <p:poll interval="#{partidoMB.timer}" listener="#{partidoMB.addDato}" update="list" stop="#{partidoMB.stop}"/>
+			    
+		
+			    
+			    <p:poll interval="#{partidoMB.timer}"  update="goles1" stop="#{partidoMB.stop}" />
+			    <p:poll interval="#{partidoMB.timer}"  update="goles2" stop="#{partidoMB.stop}" />
+			    
+			    </h:form>
+			</h:panelGroup>
+		</p:layoutUnit>
+
+	</p:layout>
+
+</h:body>
+
+</html>

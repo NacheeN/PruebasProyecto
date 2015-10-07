@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body class="fondo">
+
+	<h:outputStylesheet library="css" name="style1.css" />
+
+<p:layout fullPage="true">
+ 
+    <p:layoutUnit position="north" styleClass="navbar">
+			 <ui:include src="Navbar.xhtml" />     
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="south" styleClass="footer" >
+      <h:outputText value="POWERED BY LOSPIBES SOFTWARE FACTORY"></h:outputText>
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="west" rendered="#{not empty usuarioMB.nick}"  styleClass="menu">
+     	 <ui:include src="Menu.xhtml" />     
+    </p:layoutUnit>
+  
+    <p:layoutUnit position="center" styleClass="Content">
+  		<h:form id="Registro">
+		<p:panel id="panel" header="Registro">
+	         
+	        <p:growl id="growl" showDetail="false" />
+	        <fieldset>
+			<h:outputLabel value="Nick: " for="nick" />
+			<h:inputText id="nick" value="#{usuarioMB.nick}" required="true" requiredMessage="Campo obligatorio" maxlength="200" />		
+			<h:message for="nick"/>
+			<br />
+			<h:outputLabel value="Password: " for="password" />
+			<h:inputSecret id="password" value="#{usuarioMB.password}" required="true" requiredMessage="Campo obligatorio" maxlength="200" />
+			<h:message for="password"/> 
+			<br />	
+			<h:outputLabel value="Mail: " for="mail" />
+			<h:inputText id="mail" value="#{usuarioMB.mail}" required="true"	requiredMessage="Campo obligatorio" maxlength="200" />		
+			<h:message for="mail"/> 
+				<br />
+			<h:outputLabel value="Nombre: " for="nombre" />
+			<h:inputText id="nombre" value="#{usuarioMB.nombre}" required="true"	requiredMessage="Campo obligatorio" maxlength="200" />		
+			<h:message for="nombre"/>
+			</fieldset>
+			
+			<h:commandButton type="submit" value="Guardar" action="#{usuarioMB.registroUsuario}" update="growl"/>
+		</p:panel>
+		
+	</h:form>
+	
+	    
+    </p:layoutUnit>
+ 
+</p:layout>
+
+</h:body>
+
+</html>
+	
+	
+	
+	

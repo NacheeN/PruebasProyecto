@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body class="fondo">
+
+	<h:outputStylesheet library="css" name="style1.css" />
+
+<p:layout fullPage="true">
+ 
+    <p:layoutUnit position="north" styleClass="navbar">
+			 <ui:include src="Navbar.xhtml" />     
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="south" styleClass="footer" >
+      <h:outputText value="POWERED BY LOSPIBES SOFTWARE FACTORY"></h:outputText>
+    </p:layoutUnit>
+    
+    
+    <p:layoutUnit position="center" styleClass="Content">
+        
+    <p:growl id="growl" showDetail="false" />
+      		<h:form id="CrearMensaje">
+			<fieldset>
+				<h:outputLabel value="Nombre Equipo a Enviar: " for="nombreEqEnviar" />
+				
+				<h:inputText id="nombreEqEnviar" value="#{mensajeMB.nombreEqEnviar}" required="true" requiredMessage="Campo obligatorio" maxlength="200" />
+			
+				<h:message for="nombreEqEnviar" />
+				
+				<BR /> <BR />
+				
+				<h:outputLabel value="Descripcion: " for="descripcion" />
+				
+				<h:inputTextarea  id="descripcion" value="#{mensajeMB.descripcion}" required="true" requiredMessage="Campo obligatorio"/>
+				
+				
+				<BR /> <BR />
+				
+				
+				<h:commandButton type="submit" value="Enviar" action="#{mensajeMB.sendMensaje}" update="growl"/>
+				</fieldset>
+			</h:form>
+
+
+    </p:layoutUnit>
+ 
+</p:layout>
+
+</h:body>
+   
+</html>

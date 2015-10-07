@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:outputScript target="head">     
+
+     function verificar(){         
+   	  
+   	     //alert($("#formulario-navbar\\:txt_count").text());
+	
+	     if($("#formulario-navbar2\\:txt_count").text() != "SE JUEGA PARTIDO"){
+	     
+	     	 localStorage.clear();   
+	     }
+     }
+     
+     
+   
+
+</h:outputScript>
+
+			<h:link outcome="Index">
+				<h:graphicImage name="images/logo.png" style="height:100% !Important; with:auto; float:left;" />
+			</h:link>
+			
+			<h:form rendered="#{not empty usuarioMB.nick}" id="formulario-navbar2" style="float:left;color:white !Important; margin-left:20%;height:100%; text-align:center;"> <!--  prependId="false"  -->
+								
+					
+					<h:commandLink rendered="#{not empty usuarioMB.nick}" id="txt_count" value="#{usuarioMB.link}" action="#{usuarioMB.irChat}"></h:commandLink>
+					
+					 
+    				 <p:poll interval="1" listener="#{usuarioMB.partidoActivo}" onsuccess="verificar()" update="txt_count" />
+					
+					
+					
+			</h:form>
+			
+			
+			<p:panel id="panel1" style="float:right;" rendered="#{not empty usuarioMB.nick}" >
+			
+			<h:inputHidden id="seEjecuta" value="#{usuarioMB.link}"></h:inputHidden>
+					
+			
+				<h:form id="formulario-navbar" style="float:right;"> <!--  prependId="false"  -->
+					<h:outputText value="Welcome, #{usuarioMB.nick}" rendered="#{not empty usuarioMB.nick}"/><br/>
+					<h:commandLink rendered="#{not empty usuarioMB.nick}" id="logoutLink" value="Log Out" action="#{usuarioMB.logOut}"></h:commandLink>
+					
+					
+					
+					
+					
+					
+				</h:form>
+			</p:panel>
+
+		
+
+			
+				<p:panel id="panel2" rendered="#{empty usuarioMB.nick}" style="float:right;" >
+				<h:form id="Login" >
+					<p:growl id="growl" showDetail="false" />
+
+					<h:outputLabel value="Username " for="nick" />
+					<h:inputText id="nick" value="#{usuarioMB.nick}" required="true" requiredMessage="Campo obligatorio" maxlength="200" />
+										
+					<br/>
+					<h:outputLabel value="Password: " for="password" />
+					<h:inputSecret id="password" value="#{usuarioMB.password}" required="true" requiredMessage="Campo obligatorio" maxlength="200" />					
+					<br/>
+					<h:commandButton type="submit" value="Login" action="#{usuarioMB.Login}" update="growl" />
+					<h:outputText value=" | "></h:outputText>
+					<h:link value="Registro" outcome="Registro"></h:link>
+					
+				
+				
+						
+			
+
+				</h:form>
+				</p:panel>
+			</html>

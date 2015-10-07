@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<job-scheduling-data
+	xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData 
+	http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd"
+	version="1.8">
+ 
+	<schedule>
+		<job>
+			<name>AJob</name>
+			<group>AGroup</group>
+			<description>Print a welcome message</description>
+			<job-class>jobs.entrenamientoJob</job-class>
+		</job>
+ 
+		<trigger>
+			<cron>
+				<name>dummyTriggerName</name>
+				<job-name>AJob</job-name>
+				<job-group>AGroup</job-group>
+				<!-- It will run every 10 seconds -->
+				<cron-expression>0 39 18 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+	<schedule>
+		<job>
+			<name>JobB</name>
+			<group>GroupDummy</group>
+			<description>This is Job B</description>
+			<job-class>jobs.partidoJob</job-class>
+		</job>
+ 
+		<trigger>
+			<cron>
+				<name>dummyTriggerNameB</name>
+				<job-name>JobB</job-name>
+				<job-group>GroupDummy</job-group>
+				<!-- It will run every 5 seconds -->
+				<cron-expression>0/10 * * * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+		<schedule>
+		<job>
+			<name>JobC</name>
+			<group>GroupDummy</group>
+			<description>This is Job C</description>
+			<job-class>jobs.ejecucionJob</job-class>
+		</job>
+ 
+		<trigger>
+			<cron>
+				<name>dummyTriggerNameC</name>
+				<job-name>JobC</job-name>
+				<job-group>GroupDummy</job-group>
+				<!-- It will run every 5 seconds -->
+				<cron-expression>0/1 * * * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+	
+</job-scheduling-data>
